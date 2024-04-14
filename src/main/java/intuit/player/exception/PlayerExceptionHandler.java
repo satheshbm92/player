@@ -2,6 +2,8 @@ package intuit.player.exception;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -50,7 +52,19 @@ public class PlayerExceptionHandler {
         return new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "An unexpected error occurred. Please try again later.");
     }
 
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorResponse handleBadRequestException(HttpMessageNotReadableException ex) {
+        return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), "Malformed JSON request");
+    }
 
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+    @ResponseBody
+    public ErrorResponse handleMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
+        return new ErrorResponse(HttpStatus.METHOD_NOT_ALLOWED.value(), "Method not allowed for this endpoint");
+    }
 
     // Define ErrorResponse class (could be an inner class or a separate class)
     static class ErrorResponse {
