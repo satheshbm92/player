@@ -39,10 +39,10 @@ public class PlayerControllerTest {
 
     @Test
     void getPlayerByIdSuccess() throws Exception {
-        Player mockPlayer = new Player("Test Player", 25, "Test Team", "Forward");
+        Player mockPlayer = new Player(1L,1,"Test Player", 25, "Test Team", "Forward");
         given(playerService.getPlayerById(1)).willReturn(mockPlayer);
 
-        mockMvc.perform(get("/api/v1/players/1"))
+        mockMvc.perform(get("/api/v1/players/id/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Test Player"));
     }

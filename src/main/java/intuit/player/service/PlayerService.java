@@ -7,4 +7,5 @@ import java.util.List;
 public interface PlayerService {
     List<Player> getAllPlayers();
     Player getPlayerById(Integer id);
+    List<Player> getPlayersByPrefix(String prefix);
 }

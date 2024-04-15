@@ -22,7 +22,7 @@ public class PlayerServiceImplTest {
 
     @Test
     void getPlayerByIdFound() {
-        Player mockPlayer = new Player("Test Player", 25, "Test Team", "Forward");
+        Player mockPlayer = new Player(1L,1,"Test Player", 25, "Test Team", "Forward");
         when(playerRepository.findById(1)).thenReturn(Optional.of(mockPlayer));
 
         Player found = playerService.getPlayerById(1);

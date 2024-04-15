@@ -25,4 +25,9 @@ public class PlayerServiceImpl implements PlayerService {
                 .orElseThrow(() -> new PlayerNotFoundException("Player not found with id: " + id));
     }
 
+    @Override
+    public List<Player> getPlayersByPrefix(String prefix) {
+        return playerRepository.findByNameStartingWith(prefix);
+    }
+
 }
